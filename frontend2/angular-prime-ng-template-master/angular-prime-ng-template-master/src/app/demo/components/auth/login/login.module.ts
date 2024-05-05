@@ -7,6 +7,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
     imports: [
@@ -16,7 +17,13 @@ import { InputTextModule } from 'primeng/inputtext';
         CheckboxModule,
         InputTextModule,
         FormsModule,
-        PasswordModule
+        PasswordModule,
+        OAuthModule.forRoot({
+            resourceServer: {
+                allowedUrls: ['http://localhost:8098'],
+                sendAccessToken: true
+            }
+          })
     ],
     declarations: [LoginComponent]
 })

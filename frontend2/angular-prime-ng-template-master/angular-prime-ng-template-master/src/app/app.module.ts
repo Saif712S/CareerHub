@@ -27,6 +27,8 @@ import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,9 @@ import { FormsModule } from '@angular/forms';
         DropdownModule,
         ProgressBarModule,
         ToastModule,
-        FormsModule
+        FormsModule,
+        CheckboxModule,
+        PasswordModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

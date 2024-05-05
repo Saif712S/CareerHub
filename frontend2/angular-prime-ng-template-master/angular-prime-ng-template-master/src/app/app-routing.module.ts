@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { MydashboardComponent } from './demo/components/mydashboard/mydashboard.component';
+import { SignupComponent } from './demo/components/auth/signup/signup.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            {path :'signup',component: SignupComponent},
+
             {
                 path: '', component: AppLayoutComponent,
                 children: [

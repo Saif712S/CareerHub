@@ -21,11 +21,11 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateWay" options="-parameters" />
       <module name="Authentification" options="-parameters" />
-      <module name="Candidature" options="-parameters" />
-      <module name="Entreprise" options="-parameters" />
-      <module name="EurekaServer" options="-parameters" />
-      <module name="Notification" options="-parameters" />
-      <module name="Resume" options="-parameters" />
+      <module name="Candidature" options="" />
+      <module name="Entreprise" options="" />
+      <module name="EurekaServer" options="" />
+      <module name="Notification" options="" />
+      <module name="Resume" options="" />
     </option>
   </component>
 </project>
