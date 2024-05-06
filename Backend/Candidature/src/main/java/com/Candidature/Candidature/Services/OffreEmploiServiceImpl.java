@@ -36,6 +36,11 @@ public class OffreEmploiServiceImpl implements OffreEmploiService{
         OffreEmploi old = offreEmploiRepo.findById(id).orElse(null);
         old.setTitre(offreEmploi.getTitre());
         old.setTypeOffre(offreEmploi.getTypeOffre());
+        old.setPostesVacants(offreEmploi.getPostesVacants());
+        old.setGenre(offreEmploi.getGenre());
+        old.setLangues(offreEmploi.getLangues());
+        old.setSalaire(offreEmploi.getSalaire());
+        old.setExigencesEmploi(offreEmploi.getExigencesEmploi());
         old.setDateFin(offreEmploi.getDateFin());
         old.setDescription(offreEmploi.getDescription());
         return offreEmploiRepo.save(old);

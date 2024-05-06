@@ -25,8 +25,12 @@ public class OffreEmploi implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long offreId;
     private String titre;
-    @Enumerated(EnumType.STRING)
-    private TypeOffre typeOffre;
+    private String typeOffre;
+    private String PostesVacants;
+    private String Genre;
+    private String Langues;
+    private Double  Salaire;
+    private String ExigencesEmploi;
     private Date datePost;
     private Date dateFin;
     private String description;
