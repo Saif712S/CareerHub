@@ -1,4 +1,6 @@
+<form [formGroup]="signupForm" (ngSubmit)="signup()">
 <div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+
     <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
         <div class="col-12 mt-5 xl:mt-0 text-center">
             <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="Sakai logo" class="mb-5" style="width:81px; height:60px;">                
@@ -12,27 +14,30 @@
 
                 <div class="w-full md:w-10 mx-auto">
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                    <input id="email1" type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <input id="email1" formControlName="email"  type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
 
-                    <label for="Username" class="block text-900 text-xl font-medium mb-2">username</label>
-                    <input id="Username" type="text" placeholder="Username" pInputText class="w-full mb-3" style="padding:1rem;">
-                    <label for="firstName" class="block text-900 text-xl font-medium mb-2">firstName</label>
-                    <input id="firstName" type="text" placeholder="First Name" pInputText class="w-full mb-3" style="padding:1rem;">
-                    <label for="lastName" class="block text-900 text-xl font-medium mb-2">lastName</label>
-                    <input id="lastName" type="text" placeholder="Last Name" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="Username"  class="block text-900 text-xl font-medium mb-2">username</label>
+                    <input id="Username" formControlName="username" type="text" placeholder="Username" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="firstName"  class="block text-900 text-xl font-medium mb-2">firstName</label>
+                    <input id="firstName" formControlName="firstName" type="text" placeholder="First Name" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="lastName"  class="block text-900 text-xl font-medium mb-2">lastName</label>
+                    <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" pInputText class="w-full mb-3" style="padding:1rem;">
 
-                    <label for="password" class="block text-900 text-xl font-medium mb-2">password</label>
-                    <input id="password" type="password" placeholder="password" pInputText class="w-full mb-3" style="padding:1rem;">
-                    <label for="cin" class="block text-900 text-xl font-medium mb-2">Identity</label>
-                    <input id="cin" type="text" placeholder="Identity" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="password"  class="block text-900 text-xl font-medium mb-2">password</label>
+                    <input id="password" formControlName="password" type="password" placeholder="password" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="cin"  class="block text-900 text-xl font-medium mb-2">Identity</label>
+                    <input id="cin" formControlName="cin" type="text" placeholder="Identity" pInputText class="w-full mb-3" style="padding:1rem;">
 
                     <div class="flex align-items-center justify-content-between mb-5">
                        
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
+                        <a href="http://localhost:8080/auth/realms/CareerHub/protocol/openid-connect/auth?response_type=code&client_id=angular-client" class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Already have an account?</a>
                     </div>
-                    <button  class="w-full p-3 text-xl">SignUp</button>
+                    <button (click)="signup()" class="w-full p-3 text-xl">SignUp</button>
                 </div>
             </div>
         </div>
+    
     </div>
+
 </div>
+</form>

@@ -9,23 +9,20 @@ import { BadgeModule } from 'primeng/badge';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RippleModule } from 'primeng/ripple';
-import { AppMenuComponent } from './app.menu.component';
-import { AppMenuitemComponent } from './app.menuitem.component';
+import { PresignupComponent } from './presignup.component';
+import { AppMenuitemComponent } from 'src/app/layout/app.menuitem.component';
 import { RouterModule } from '@angular/router';
-import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppConfigModule } from './config/config.module';
-import { AppSidebarComponent } from "./app.sidebar.component";
-import { AppLayoutComponent } from "./app.layout.component";
+import { AppFooterComponent } from 'src/app/layout/app.footer.component';
+import { AppLayoutComponent } from 'src/app/layout/app.layout.component';
+import { AppMenuComponent } from 'src/app/layout/app.menu.component';
+import { AppSidebarComponent } from 'src/app/layout/app.sidebar.component';
+import { AppTopBarComponent } from 'src/app/layout/app.topbar.component';
+import { AppConfigModule } from 'src/app/layout/config/config.module';
+import { AppLayoutModule } from 'src/app/layout/app.layout.module';
 
 @NgModule({
     declarations: [
-        AppMenuitemComponent,
-        AppTopBarComponent,
-        AppFooterComponent,
-        AppMenuComponent,
-        AppSidebarComponent,
-        AppLayoutComponent,
+        PresignupComponent
        
     ],
     imports: [
@@ -42,6 +39,6 @@ import { AppLayoutComponent } from "./app.layout.component";
         RouterModule,
         AppConfigModule
     ],
-    exports: [AppLayoutComponent]
+    exports: [PresignupComponent]
 })
-export class AppLayoutModule { }
+export class PresignupModule { }

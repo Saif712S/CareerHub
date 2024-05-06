@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
@@ -59,5 +60,92 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     `]
 })
 export class LandingComponent {
-    constructor(public layoutService: LayoutService, public router: Router) { }
+    username!:string;
+    isLoggedIn!:boolean;
+    isAdmin!:boolean;
+    @Input() isLogged!:boolean;
+    @Input() isAdminn!:boolean;
+    constructor(public layoutService: LayoutService, public router: Router,private oauthService:OAuthService) {     this.configure();
+      this.oauthService.events.subscribe(event => {
+        if (event.type === 'token_received') {
+          const accessToken = this.oauthService.getAccessToken();
+          console.log("Access token received:", accessToken);
+          localStorage.setItem('access_token', accessToken);
+        }
+      });
+    }
+    authFlowConfig: AuthConfig = {
+        issuer: 'http://localhost:8080/realms/CareerHub',
+        requireHttps: false,
+        redirectUri: window.location.origin,
+        clientId: 'angular-client',
+        responseType: 'code',
+        scope: 'openid profile email offline_access',
+    
+        showDebugInformation: true,
+      };
+      configure():void{
+        this.oauthService.configure(this.authFlowConfig);
+        this.oauthService.tokenValidationHandler=new NullValidationHandler;
+        this.oauthService.setupAutomaticSilentRefresh();
+        this.oauthService.loadDiscoveryDocument().then(()=>this.oauthService.tryLogin())
+        .then (()=>{
+          if(this.oauthService.getIdentityClaims()){
+            this.isLoggedIn=this.getIsLoggedIn();
+            this.username=this.getUsername();
+    
+           // this.preferredUsername;
+           // this.username=this.oauthService.()[`preferred_username`];
+          }
+        });
+    
+      }
+      login():void{
+        this.oauthService.initImplicitFlowInternal();
+        console.log("hello");
+      
+      this.oauthService.events.subscribe(event => {
+        if (event.type === 'token_received') {
+          // Token received, now you can access it
+          const accessToken = this.oauthService.getAccessToken();
+          console.log("Access token received:", accessToken);
+          // Save token to localStorage
+          localStorage.setItem('access_token', accessToken);
+        }
+      });
+    }
+      public getIsLoggedIn():boolean{
+    
+        return (this.oauthService.hasValidAccessToken() && this.oauthService.hasValidAccessToken());
+      }
+      logout():void{
+        this.oauthService.logOut();
+    
+      }
+     
+    
+    
+    
+      public getIsAdmin():boolean{
+        const token=this.oauthService.getAccessToken();
+        const payload=token.split('.')[1];
+        const payloadDecodedJson=atob(payload);
+        const payloadDecoded= JSON.parse(payloadDecodedJson);
+        const preferredUsername = payloadDecoded.preferred_username
+        console.log(payloadDecoded);
+        console.log(preferredUsername)
+        return payloadDecoded.realm_access.roles.indexOf('Admin') !==-1;
+    
+      }
+      public getUsername():string{
+        const token=this.oauthService.getAccessToken();
+        console.log(token);
+        const payload=token.split('.')[1];
+        const payloadDecodedJson=atob(payload);
+        const payloadDecoded= JSON.parse(payloadDecodedJson);
+        const preferredUsername = payloadDecoded.preferred_username
+        console.log(preferredUsername);
+       return preferredUsername;
+      }
+    
 }

@@ -4,14 +4,20 @@ import { NotfoundComponent } from './demo/components/notfound/notfound.component
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { MydashboardComponent } from './demo/components/mydashboard/mydashboard.component';
 import { SignupComponent } from './demo/components/auth/signup/signup.component';
+import { PresignupComponent } from './demo/components/presignup/presignup.component';
+import { LandingComponent } from './demo/components/landing/landing.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            {path: '', component: LandingComponent},
+
             {path :'signup',component: SignupComponent},
+            {path :'presignup',component: PresignupComponent},
+
 
             {
-                path: '', component: AppLayoutComponent,
+                path: 'dashboard', component: AppLayoutComponent,
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UikitModule) },

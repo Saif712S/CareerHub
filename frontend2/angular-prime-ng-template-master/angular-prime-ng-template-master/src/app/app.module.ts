@@ -26,17 +26,30 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { ToastrModule } from 'ngx-toastr';
+import { PresignupComponent } from './demo/components/presignup/presignup.component';
+import { PresignupModule } from './demo/components/presignup/presignup.module';
+import { AppFooterComponent } from './layout/app.footer.component';
+import { AppLayoutComponent } from './layout/app.layout.component';
+import { AppMenuComponent } from './layout/app.menu.component';
+import { AppMenuitemComponent } from './layout/app.menuitem.component';
+import { AppSidebarComponent } from './layout/app.sidebar.component';
+import { AppTopBarComponent } from './layout/app.topbar.component';
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, MydashboardComponent
+        AppComponent, NotfoundComponent, MydashboardComponent,
+       
     ],
     imports: [
+        
         AppRoutingModule,
         AppLayoutModule,
+        PresignupModule,
         TableModule,
         CommonModule,
         RatingModule,
@@ -51,7 +64,13 @@ import { PasswordModule } from 'primeng/password';
         ToastModule,
         FormsModule,
         CheckboxModule,
-        PasswordModule
+        PasswordModule,
+        OAuthModule.forRoot(),
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+
+
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

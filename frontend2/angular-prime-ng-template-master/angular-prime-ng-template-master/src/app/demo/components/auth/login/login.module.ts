@@ -18,12 +18,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        OAuthModule.forRoot({
-            resourceServer: {
-                allowedUrls: ['http://localhost:8098'],
-                sendAccessToken: true
-            }
-          })
+    
     ],
     declarations: [LoginComponent]
 })

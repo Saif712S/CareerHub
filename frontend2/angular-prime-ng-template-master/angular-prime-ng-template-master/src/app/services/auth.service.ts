@@ -18,7 +18,15 @@ export class AuthService {
   constructor(private oauthService:OAuthService,private http:HttpClient) { }
   public login():void{
     this.oauthService.initImplicitFlowInternal();
+    this.oauthService.events.subscribe(event => {
+      if (event.type === 'token_received') {
+        // Save token to localStorage
+        localStorage.setItem('access_token', this.oauthService.getAccessToken());
+      }
+    });
+  
   }
+ 
   public isLoggedIn():boolean{
     return (this.oauthService.hasValidIdToken() && this.oauthService.hasValidAccessToken());
   }
