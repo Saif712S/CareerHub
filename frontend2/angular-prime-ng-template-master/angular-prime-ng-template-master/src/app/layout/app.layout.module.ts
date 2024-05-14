@@ -17,6 +17,8 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { MaterialModuleModule } from '../materialModule/material-module/material-module.module';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,13 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
+        MaterialModuleModule,
+        MatDialogModule
+    ],
+    providers: [
+     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {}}
+
     ],
     exports: [AppLayoutComponent]
 })

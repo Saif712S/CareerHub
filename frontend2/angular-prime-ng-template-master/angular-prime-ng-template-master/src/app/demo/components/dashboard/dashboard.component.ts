@@ -4,9 +4,13 @@ import { Product } from '../../api/product';
 import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEntrepriseDialogComponent } from '../add-entreprise-dialog/add-entreprise-dialog.component';
 
 @Component({
     templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
+
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -20,11 +24,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+    constructor(private productService: ProductService, public layoutService: LayoutService,public dialog :MatDialog) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
     }
+    openDialog(): void {
+        console.log('opening')
+
+        const dialogRef = this.dialog.open(AddEntrepriseDialogComponent, {
+          maxWidth: '50%',
+          width: 'auto',
+          data: {},
+          position: {
+            top: '10%',
+            left: '30%',
+            transform: 'translateX(-50%) translateY(-50%)'
+          },
+          panelClass: 'custom-dialog-container'
+        } as any);
+      
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+      }
 
     ngOnInit() {
         this.initChart();

@@ -1,7 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { OffreEmploi } from 'src/app/model/OffreEmploi';
+import { OffreEmploiService } from 'src/app/services/offre-emploi.service';
+import { Observable, tap } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { FormGroup } from '@angular/forms';
+import { LoginRequest } from 'src/app/model/LoginRequest';
+import { AuthService } from 'src/app/services/auth.service';
+
+
+
 
 @Component({
     selector: 'app-landing',
@@ -59,65 +70,82 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         }
     `]
 })
-export class LandingComponent {
-    username!:string;
-    isLoggedIn!:boolean;
-    isAdmin!:boolean;
-    @Input() isLogged!:boolean;
-    @Input() isAdminn!:boolean;
-    constructor(public layoutService: LayoutService, public router: Router,private oauthService:OAuthService) {     this.configure();
-      this.oauthService.events.subscribe(event => {
-        if (event.type === 'token_received') {
-          const accessToken = this.oauthService.getAccessToken();
-          console.log("Access token received:", accessToken);
-          localStorage.setItem('access_token', accessToken);
-        }
-      });
-    }
-    authFlowConfig: AuthConfig = {
-        issuer: 'http://localhost:8080/realms/CareerHub',
-        requireHttps: false,
-        redirectUri: window.location.origin,
-        clientId: 'angular-client',
-        responseType: 'code',
-        scope: 'openid profile email offline_access',
-    
-        showDebugInformation: true,
-      };
-      configure():void{
-        this.oauthService.configure(this.authFlowConfig);
-        this.oauthService.tokenValidationHandler=new NullValidationHandler;
-        this.oauthService.setupAutomaticSilentRefresh();
-        this.oauthService.loadDiscoveryDocument().then(()=>this.oauthService.tryLogin())
-        .then (()=>{
-          if(this.oauthService.getIdentityClaims()){
-            this.isLoggedIn=this.getIsLoggedIn();
-            this.username=this.getUsername();
-    
-           // this.preferredUsername;
-           // this.username=this.oauthService.()[`preferred_username`];
-          }
-        });
-    
+export class LandingComponent implements OnInit {
+  
+  offres!:OffreEmploi[];
+  username!:string;
+  submitted=false;
+  isLoggedIn!:boolean;
+  isAdmin!:boolean;
+  @Input() isLogged!:boolean;
+  @Input() isAdminn!:boolean;
+  constructor(public layoutService: LayoutService, public router: Router,private oauthService:OAuthService,private offreEmploiService:OffreEmploiService) {     this.configure();
+    this.oauthService.events.subscribe(event => {
+      if (event.type === 'token_received') {
+        const accessToken = this.oauthService.getAccessToken();
+        console.log("Access token received:", accessToken);
+        localStorage.setItem('access_token', accessToken);
       }
-      login():void{
-        this.oauthService.initImplicitFlowInternal();
-        console.log("hello");
-      
-      this.oauthService.events.subscribe(event => {
-        if (event.type === 'token_received') {
-          // Token received, now you can access it
-          const accessToken = this.oauthService.getAccessToken();
-          console.log("Access token received:", accessToken);
-          // Save token to localStorage
-          localStorage.setItem('access_token', accessToken);
+    });
+  }
+  authFlowConfig: AuthConfig = {
+      issuer: 'http://localhost:8080/realms/CareerHub',
+      requireHttps: false,
+      redirectUri: window.location.origin,
+      clientId: 'angular-client',
+      responseType: 'code',
+      scope: 'openid profile email offline_access',
+  
+      showDebugInformation: true,
+    };
+    configure():void{
+      this.oauthService.configure(this.authFlowConfig);
+      this.oauthService.tokenValidationHandler=new NullValidationHandler;
+      this.oauthService.setupAutomaticSilentRefresh();
+      this.oauthService.loadDiscoveryDocument().then(()=>this.oauthService.tryLogin())
+      .then (()=>{
+        if(this.oauthService.getIdentityClaims()){
+          this.isLoggedIn=this.getIsLoggedIn();
+          this.username=this.getUsername();
+  
+         // this.preferredUsername;
+         // this.username=this.oauthService.()[`preferred_username`];
         }
       });
+  
     }
+
+    
+  
+    login():void{
+      this.oauthService.initImplicitFlowInternal();
+      this.oauthService.hasValidAccessToken();
+      console.log("hello");
+    
+    this.oauthService.events.subscribe(event => {
+      if (event.type === 'token_received') {
+        // Token received, now you can access it
+        const accessToken = this.oauthService.getAccessToken();
+
+        console.log("Access token received:", accessToken);
+        // Save token to localStorage
+        localStorage.setItem('access_token', accessToken);
+      }
+      const refreshToken = this.oauthService.getRefreshToken();
+      localStorage.setItem('refreshToken', refreshToken);
+    });
+  }
+  refreshToken():string{
+    return this.oauthService.getRefreshToken();
+  }
       public getIsLoggedIn():boolean{
     
         return (this.oauthService.hasValidAccessToken() && this.oauthService.hasValidAccessToken());
       }
+      private storeToken(token: string): void {
+        // Implement your secure token storage logic here
+        localStorage.setItem('access_token', token);
+    }
       logout():void{
         this.oauthService.logOut();
     
@@ -147,5 +175,9 @@ export class LandingComponent {
         console.log(preferredUsername);
        return preferredUsername;
       }
+      ngOnInit(): void {
+        this.offreEmploiService.getAllOffres().subscribe(offres=>this.offres=offres);
+      }
+     
     
-}
+    }

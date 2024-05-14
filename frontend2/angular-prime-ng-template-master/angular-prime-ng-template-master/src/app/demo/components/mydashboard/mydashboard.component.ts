@@ -7,6 +7,8 @@ import { Product } from 'src/app/demo/api/product';
 import { CustomerService } from 'src/app/demo/service/customer.service';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { NgModule } from '@angular/core';
+import { Candidature } from 'src/app/model/Candidature';
+import { OffreEmploiService } from 'src/app/services/offre-emploi.service';
 
 
 interface expandedRows {
@@ -33,7 +35,7 @@ interface expandedRows {
     `]
 })
 export class MydashboardComponent implements OnInit {
-
+    candidatures!:Candidature[];
     customers1: Customer[] = [];
 
     customers2: Customer[] = [];
@@ -64,9 +66,10 @@ export class MydashboardComponent implements OnInit {
 
     @ViewChild('filter') filter!: ElementRef;
 
-    constructor(private customerService: CustomerService, private productService: ProductService) { }
+    constructor(private customerService: CustomerService, private productService: ProductService,private offreService:OffreEmploiService) { }
 
     ngOnInit() {
+        this.loadCandidatures();
         this.customerService.getCustomersLarge().then(customers => {
             this.customers1 = customers;
             this.loading = false;
@@ -99,6 +102,18 @@ export class MydashboardComponent implements OnInit {
             { label: 'Renewal', value: 'renewal' },
             { label: 'Proposal', value: 'proposal' }
         ];
+    }
+    loadCandidatures(): void {
+        this.offreService.getAllCandidature().subscribe({
+            next: data => {
+                this.candidatures = data;
+                console.log('Candidatures:', this.candidatures);
+            },
+            error: error => {
+                console.error('Error fetching candidatures:', error);
+                // Handle error as needed
+            }
+        });
     }
 
     onSort() {

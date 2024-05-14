@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { AdminsignupComponent } from './adminsignup/adminsignup.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
        
     ],
     declarations: [
-      SignupComponent
+      SignupComponent,
+      AdminsignupComponent
     ]
 })
 export class AuthModule { }

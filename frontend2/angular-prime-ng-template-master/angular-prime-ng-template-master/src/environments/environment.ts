@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl1:'http://localhost:8082'
+  apiBaseUrl1:'http://localhost:8082',
+  apiBaseUrl2:'http://localhost:8083',
+  apiBaseUrl3:'http://localhost:8084'
+
+
 };
 
 /*

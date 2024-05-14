@@ -1,108 +1,94 @@
-<div class="grid">
-	<div class="col-12 md:col-6">
-		<div class="card p-fluid">
-			<h5>Vertical</h5>
-			<div class="field">
-				<label htmlFor="name1">Name</label>
-				<input pInputText id="name1" type="text" />
-			</div>
-			<div class="field">
-				<label htmlFor="email1">Email</label>
-				<input pInputText id="email1" type="text" />
-			</div>
-			<div class="field">
-				<label htmlFor="age1">Age</label>
-				<input pInputText id="age1" type="text" />
-			</div>
+<div class="flex-container" style="display: flex; justify-content: space-around;">
 
-		</div>
+		<form [formGroup]="entrepriseForm"  style="width: 45%;">
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:50%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+        </div>
+        <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome</div>
+                    <span class="text-600 font-medium">SignUp to continue</span>
+                </div>
+
+                <div class="w-full md:w-10 mx-auto">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                    <input id="email1" formControlName="email"  type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
+
+                    <label for="Username"  class="block text-900 text-xl font-medium mb-2">username</label>
+                    <input id="Username" formControlName="username" type="text" placeholder="Username" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="firstName"  class="block text-900 text-xl font-medium mb-2">firstName</label>
+                    <input id="firstName" formControlName="firstName" type="text" placeholder="First Name" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="lastName"  class="block text-900 text-xl font-medium mb-2">lastName</label>
+                    <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" pInputText class="w-full mb-3" style="padding:1rem;">
+
+                    <label for="password"  class="block text-900 text-xl font-medium mb-2">password</label>
+                    <input id="password" formControlName="password" type="password" placeholder="password" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <label for="cin"  class="block text-900 text-xl font-medium mb-2">Identity</label>
+                    <input id="cin" formControlName="cin" type="text" placeholder="Identity" pInputText class="w-full mb-3" style="padding:1rem;">
+
+                    <div class="flex align-items-center justify-content-between mb-5">
+                       
+                        <a href="http://localhost:8080/auth/realms/CareerHub/protocol/openid-connect/auth?response_type=code&client_id=angular-client" class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Already have an account?</a>
+                    </div>
+                    <button  class="w-full p-3 text-xl">SignUp</button>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+</div>
+</form>
+
+
+
+
+
+
+
+<form [formGroup]="entrepriseForm">
+	<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+	
+		<div class="grid justify-content-center p-2 lg:p-0" style="min-width:50%">
+			<div class="col-12 mt-5 xl:mt-0 text-center">
+			</div>
+			<div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+				<div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+					<div class="text-center mb-5">
+						<div class="text-900 text-3xl font-medium mb-3">Welcome</div>
+						<span class="text-600 font-medium">SignUp to continue</span>
+					</div>
+	
+					<div class="w-full md:w-10 mx-auto">
+						<label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+						<input id="email1" formControlName="email"  type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
+	
+						<label for="Username"  class="block text-900 text-xl font-medium mb-2">username</label>
+						<input id="Username" formControlName="username" type="text" placeholder="Username" pInputText class="w-full mb-3" style="padding:1rem;">
+						<label for="firstName"  class="block text-900 text-xl font-medium mb-2">firstName</label>
+						<input id="firstName" formControlName="firstName" type="text" placeholder="First Name" pInputText class="w-full mb-3" style="padding:1rem;">
+						<label for="lastName"  class="block text-900 text-xl font-medium mb-2">lastName</label>
+						<input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" pInputText class="w-full mb-3" style="padding:1rem;">
+	
+						<label for="password"  class="block text-900 text-xl font-medium mb-2">password</label>
+						<input id="password" formControlName="password" type="password" placeholder="password" pInputText class="w-full mb-3" style="padding:1rem;">
+						<label for="cin"  class="block text-900 text-xl font-medium mb-2">Identity</label>
+						<input id="cin" formControlName="cin" type="text" placeholder="Identity" pInputText class="w-full mb-3" style="padding:1rem;">
+	
+						<div class="flex align-items-center justify-content-between mb-5">
+						   
+							<a href="http://localhost:8080/auth/realms/CareerHub/protocol/openid-connect/auth?response_type=code&client_id=angular-client" class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Already have an account?</a>
+						</div>
+						<button  class="w-full p-3 text-xl">SignUp</button>
+					</div>
+				</div>
+			</div>
 		
-		<div class="card p-fluid">
-			<h5>Vertical Grid</h5>
-			<div class="p-formgrid grid">
-				<div class="field col">
-					<label htmlFor="name2">Name</label>
-					<input pInputText id="name2" type="text" />
-				</div>
-				<div class="field col">
-					<label htmlFor="email2">Email</label>
-					<input pInputText id="email2" type="text" />
-				</div>
-			</div>
 		</div>
+	
 	</div>
-
-	<div class="col-12 md:col-6">
-		<div class="card p-fluid">
-			<h5>Horizontal</h5>
-			<div class="field grid">
-				<label htmlFor="name3" class="col-12 mb-2 md:col-2 md:mb-0">Name</label>
-				<div class="col-12 md:col-10">
-					<input pInputText id="name3" type="text" />
-				</div>
-			</div>
-			<div class="field grid">
-				<label htmlFor="email3" class="col-12 mb-2 md:col-2 md:mb-0">Email</label>
-				<div class="col-12 md:col-10">
-					<input pInputText id="email3" type="text" />
-				</div>
-			</div>
-		</div>
-
-		<div class="card">
-			<h5>Inline</h5>
-			<div class="formgroup-inline">
-				<div class="field">
-					<label htmlFor="firstname1" class="p-sr-only">Firstname</label>
-					<input pInputText id="firstname1" type="text" placeholder="Firstname" />
-				</div>
-				<div class="field">
-					<label htmlFor="lastname1" class="p-sr-only">Lastname</label>
-					<input pInputText id="lastname1" type="text" placeholder="Lastname" />
-				</div>
-				<button pButton label="Submit"></button>
-			</div>
-		</div>
-
-		<div class="card">
-			<h5>Help Text</h5>
-			<div class="field p-fluid">
-				<label htmlFor="username">Username</label>
-				<input pInputText id="username" type="text" />
-				<small>Enter your username to reset your password.</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-12">
-		<div class="card">
-			<h5>Advanced</h5>
-			<div class="p-fluid p-formgrid grid">
-				<div class="field col-12 md:col-6">
-					<label htmlFor="firstname2">Firstname</label>
-					<input pInputText id="firstname2" type="text" />
-				</div>
-				<div class="field col-12 md:col-6">
-					<label htmlFor="lastname2">Lastname</label>
-					<input pInputText id="lastname2" type="text" />
-				</div>
-				<div class="field col-12">
-					<label htmlFor="address">Address</label>
-					<input pInputTextarea id="address" rows="4" />
-				</div>
-				<div class="field col-12 md:col-6">
-					<label htmlFor="city">City</label>
-					<input pInputText id="city" type="text" />
-				</div>
-				<div class="field col-12 md:col-3">
-					<label htmlFor="state">State</label>
-					<p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedState"></p-dropdown>
-				</div>
-				<div class="field col-12 md:col-3">
-					<label htmlFor="zip">Zip</label>
-					<input pInputText id="zip" type="text" />
-				</div>
-			</div>
-		</div>
-	</div>
+	</form>
 </div>

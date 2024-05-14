@@ -39,10 +39,15 @@ import { AppMenuComponent } from './layout/app.menu.component';
 import { AppMenuitemComponent } from './layout/app.menuitem.component';
 import { AppSidebarComponent } from './layout/app.sidebar.component';
 import { AppTopBarComponent } from './layout/app.topbar.component';
+import { AddEntrepriseComponent } from './demo/components/add-entreprise/add-entreprise.component';
+import { AddEntrepriseDialogComponent } from './demo/components/add-entreprise-dialog/add-entreprise-dialog.component';
+import { MaterialModuleModule } from './materialModule/material-module/material-module.module';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, MydashboardComponent,
+        AppComponent, NotfoundComponent, MydashboardComponent, AddEntrepriseComponent, AddEntrepriseDialogComponent,
        
     ],
     imports: [
@@ -68,6 +73,9 @@ import { AppTopBarComponent } from './layout/app.topbar.component';
         OAuthModule.forRoot(),
         ToastrModule.forRoot(),
         ReactiveFormsModule,
+        MaterialModuleModule,
+        MatDialogModule
+
 
 
 
@@ -75,7 +83,8 @@ import { AppTopBarComponent } from './layout/app.topbar.component';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {}}
+
     ],
     bootstrap: [AppComponent]
 })
