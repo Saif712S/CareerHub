@@ -43,6 +43,7 @@ import { AddEntrepriseComponent } from './demo/components/add-entreprise/add-ent
 import { AddEntrepriseDialogComponent } from './demo/components/add-entreprise-dialog/add-entreprise-dialog.component';
 import { MaterialModuleModule } from './materialModule/material-module/material-module.module';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -82,7 +83,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
+        CountryService, CustomerService, EventService, IconService, NodeService,MessageService,
         PhotoService, ProductService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {}}
 
     ],

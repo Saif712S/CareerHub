@@ -23,6 +23,9 @@ import { OAuthModule } from 'angular-oauth2-oidc';
         
     
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent],
+    exports: [
+        LoginComponent 
+      ]
 })
 export class LoginModule { }

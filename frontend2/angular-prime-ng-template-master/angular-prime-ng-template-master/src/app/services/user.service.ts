@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/User';
 import { AuthService } from './auth.service';
+import { ResponsableRH } from '../model/responsable-rh';
 
 
 @Injectable({
@@ -26,6 +27,16 @@ export class UserService {
       }
     })
   }
+
+  public listRH():Observable<ResponsableRH[]>{
+  return this.http.get<ResponsableRH[]>(`${this.apiServiceUrl}/user/admin/findAll`, {
+    headers: {
+      'Authorization': `Bearer ${this.loginService.getTOKEN()}`,
+      'Content-type':'application/json'
+
+    }
+  })
+}
   public detail(userName:string):Observable<User>{
     return this.http.get<User>(`${this.apiServiceUrl}/user/ByName/${userName}`, {
       headers: {
@@ -80,5 +91,16 @@ export class UserService {
 
       }
     })
+  }
+
+
+
+  addResponsableRH(keycloakUser: ResponsableRH): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+      // Vous pouvez également ajouter des en-têtes d'autorisation si nécessaire
+    });
+
+    return this.http.post<any>(`${this.apiServiceUrl}/user/AddResponsableRH`, keycloakUser, { headers });
   }
 }

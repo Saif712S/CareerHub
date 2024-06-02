@@ -17,10 +17,16 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    { label: 'Offres d\'emploi', icon: 'pi pi-briefcase', routerLink: ['/acceuil'] },
+                    { label: 'Gestion des utilisateurs', icon: 'pi pi-users', routerLink: ['/user'] },
+                    { label: 'Gestion des entreprises', icon: 'pi pi-building', routerLink: ['/entreprise'] },
+                    { label: 'Gestion des Candidatures', icon: 'pi pi-id-card', routerLink: ['/candidat'] },
+                    { label: 'Gestion des Responsables RH', icon: 'pi pi-fw pi-home', routerLink: ['/responsable-rh'] },
+                    { label: 'Historiques', icon: 'pi pi-history', routerLink: ['/historique'] },
+                    { label: 'Gestion des offres d\'emploi', icon: 'pi pi-fw pi-list', routerLink: ['/offres'] },
                 ]
             },
-            {
+           /*  {
                 label: 'UI Components',
                 items: [
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
@@ -161,7 +167,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'View Source', icon: 'pi pi-fw pi-search', url: ['https://github.com/primefaces/sakai-ng'], target: '_blank'
                     }
                 ]
-            }
+            } */
         ];
     }
 }

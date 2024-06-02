@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: AuthService,
-    private router: Router
+    private router: Router,
+    
   ) {
     document.querySelector('body')?.classList.add('login-img');
   }
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
           
           // Check if user roles include 'Admin'
           if (userRoles && userRoles.includes('Admin Entreprise')) {
-            this.router.navigate(['/dashboard']); // Redirect to dashboard for admin
+            this.router.navigate(['/acceuil']); // Redirect to dashboard for admin
           } else {
             this.router.navigate(['']); // Redirect to landing page for non-admin users
           }
@@ -84,7 +85,8 @@ export class LoginComponent implements OnInit {
           console.error('Login error:', error);
           this.errorMessage = 'Le nom de l\'utilisateur ou le mot de passe est incorrect';
         });
-    }
+    } 
+
   }
   
   

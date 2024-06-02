@@ -179,5 +179,6 @@ export class LandingComponent implements OnInit {
         this.offreEmploiService.getAllOffres().subscribe(offres=>this.offres=offres);
       }
      
+      
     
     }

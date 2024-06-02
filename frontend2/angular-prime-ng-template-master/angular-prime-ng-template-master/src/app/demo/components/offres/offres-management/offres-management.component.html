@@ -1,0 +1,348 @@
+<!-- <div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Nouvelle offre d'emploi" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+
+            <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Gestion des offre d'emploi</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="titre">Titre <p-sortIcon field="titre"></p-sortIcon></th>
+                        <th pSortableColumn="typeOffre">Type de l'offre <p-sortIcon field="typeOffre"></p-sortIcon></th>
+                        <th pSortableColumn="PostesVacants">Poste <p-sortIcon field="PostesVacants"></p-sortIcon></th>
+                        <th pSortableColumn="Genre">Genre <p-sortIcon field="Genre"></p-sortIcon></th>
+                        <th pSortableColumn="Langues">Langues <p-sortIcon field="role"></p-sortIcon></th>
+                        <th pSortableColumn="Salaire">Salaire <p-sortIcon field="Salaire"></p-sortIcon></th>
+                        <th pSortableColumn="ExigencesEmploi">Exigences <p-sortIcon field="ExigencesEmploi"></p-sortIcon></th>
+                        <th pSortableColumn="datePost">Date de publication <p-sortIcon field="datePost"></p-sortIcon></th>
+                        <th pSortableColumn="dateFin">Date d'expiration <p-sortIcon field="dateFin"></p-sortIcon></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
+                            {{product.code || product.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Name</span>
+                            {{product.name}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
+                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price</span>
+                            {{product.price | currency:'USD'}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Category</span>
+                            {{product.category}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Category</span>
+                            {{product.category}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Category</span>
+                            {{product.category}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price</span>
+                            {{product.price | currency:'USD'}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price</span>
+                            {{product.price | currency:'USD'}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price</span>
+                            {{product.price | currency:'USD'}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+
+
+
+
+        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Détails de l'offre d'emploi" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image">
+                
+                <div class="field">
+                    <label for="name">Titre</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Type de l'offre</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Poste </label>
+                    <input type="email" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Genre</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Langues</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Salaire</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Exigences</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Date de publication</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="name">Date d'expiration</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+
+                <div class="field">
+                    <label for="name">Description</label>
+                    <input type="number" pInputText id="name" [(ngModel)]="product.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                </div>
+
+            
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+            </ng-template>
+        </p-dialog>
+
+
+
+        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="product">Etes-vous sûr de vouloir supprimer <b>{{product.name}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Etes-vous sûr de vouloir supprimer les offres d'emploi sélectionnés</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductsDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
+ -->
+
+
+
+
+ <div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Nouvelle offre d'emploi" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedOffres()" [disabled]="!selectedOffres || !selectedOffres.length"></button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="offres" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['titre', 'typeOffre', 'postesVacants', 'genre', 'langues', 'salaire', 'exigencesEmploi', 'datePost', 'dateFin', 'description']" [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} de {totalRecords} offres" [(selection)]="selectedOffres" selectionMode="multiple" [rowHover]="true" dataKey="offreId">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Gestion des offres d'emploi</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..." class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="titre">Titre <p-sortIcon field="titre"></p-sortIcon></th>
+                        <th pSortableColumn="typeOffre">Type de l'offre <p-sortIcon field="typeOffre"></p-sortIcon></th>
+                        <th pSortableColumn="postesVacants">Postes Vacants <p-sortIcon field="postesVacants"></p-sortIcon></th>
+                        <th pSortableColumn="genre">Genre <p-sortIcon field="genre"></p-sortIcon></th>
+                        <th pSortableColumn="langues">Langues <p-sortIcon field="langues"></p-sortIcon></th>
+                        <th pSortableColumn="salaire">Salaire <p-sortIcon field="salaire"></p-sortIcon></th>
+                        <th pSortableColumn="exigencesEmploi">Exigences <p-sortIcon field="exigencesEmploi"></p-sortIcon></th>
+                        <th pSortableColumn="datePost">Date de publication <p-sortIcon field="datePost"></p-sortIcon></th>
+                        <th pSortableColumn="dateFin">Date d'expiration <p-sortIcon field="dateFin"></p-sortIcon></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-offre>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="offre"></p-tableCheckbox>
+                        </td>
+                        <td><span class="p-column-title">Titre</span>{{offre.titre}}</td>
+                        <td><span class="p-column-title">Type de l'offre</span>{{offre.typeOffre}}</td>
+                        <td><span class="p-column-title">Postes Vacants</span>{{offre.postesVacants}}</td>
+                        <td><span class="p-column-title">Genre</span>{{offre.genre}}</td>
+                        <td><span class="p-column-title">Langues</span>{{offre.langues}}</td>
+                        <td><span class="p-column-title">Salaire</span>{{offre.salaire | currency:'USD'}}</td>
+                        <td><span class="p-column-title">Exigences</span>{{offre.exigencesEmploi}}</td>
+                        <td><span class="p-column-title">Date de publication</span>{{offre.datePost | date:'dd/MM/yyyy'}}</td>
+                        <td><span class="p-column-title">Date d'expiration</span>{{offre.dateFin | date:'dd/MM/yyyy'}}</td>
+                        <td><span class="p-column-title">Description</span>{{offre.description}}</td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editOffre(offre)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteOffre(offre)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Ajouter ou éditer une offre -->
+        <p-dialog [(visible)]="offreDialog" [style]="{width: '450px'}" header="Détails de l'offre d'emploi" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="titre">Titre</label>
+                    <input type="text" pInputText id="titre" [(ngModel)]="offre.titre" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.titre}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.titre">Le titre est requis.</small>
+                </div>
+                <div class="field">
+                    <label for="typeOffre">Type de l'offre</label>
+                    <input type="text" pInputText id="typeOffre" [(ngModel)]="offre.typeOffre" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.typeOffre}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.typeOffre">Le type d'offre est requis.</small>
+                </div>
+                <div class="field">
+                    <label for="postesVacants">Postes Vacants</label>
+                    <input type="text" pInputText id="postesVacants" [(ngModel)]="offre.postesVacants" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.postesVacants}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.postesVacants">Le nombre de postes vacants est requis.</small>
+                </div>
+                <div class="field">
+                    <label for="genre">Genre</label>
+                    <input type="text" pInputText id="genre" [(ngModel)]="offre.genre" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.genre}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.genre">Le genre est requis.</small>
+                </div>
+                <div class="field">
+                    <label for="langues">Langues</label>
+                    <input type="text" pInputText id="langues" [(ngModel)]="offre.langues" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.langues}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.langues">Les langues sont requises.</small>
+                </div>
+                <div class="field">
+                    <label for="salaire">Salaire</label>
+                    <input type="number" pInputText id="salaire" [(ngModel)]="offre.salaire" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.salaire}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.salaire">Le salaire est requis.</small>
+                </div>
+                <div class="field">
+                    <label for="exigencesEmploi">Exigences</label>
+                    <input type="text" pInputText id="exigencesEmploi" [(ngModel)]="offre.exigencesEmploi" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.exigencesEmploi}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.exigencesEmploi">Les exigences sont requises.</small>
+                </div>
+                <div class="field">
+                    <label for="datePost">Date de publication</label>
+                    <input type="date" pInputText id="datePost" [(ngModel)]="offre.datePost" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.datePost}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.datePost">La date de publication est requise.</small>
+                </div>
+                <div class="field">
+                    <label for="dateFin">Date d'expiration</label>
+                    <input type="date" pInputText id="dateFin" [(ngModel)]="offre.dateFin" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.dateFin}"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.dateFin">La date d'expiration est requise.</small>
+                </div>
+                <div class="field">
+                    <label for="description">Description</label>
+                    <textarea pInputTextarea id="description" [(ngModel)]="offre.description" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !offre.description}"></textarea>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !offre.description">La description est requise.</small>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" (click)="saveOffre()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <!-- Confirmer la suppression d'une offre -->
+        <p-dialog [(visible)]="deleteOffreDialog" header="Confirmation" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="offre">Êtes-vous sûr de vouloir supprimer <b>{{offre.titre}}</b> ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="deleteOffreDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Oui" (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <!-- Confirmer la suppression des offres sélectionnées -->
+        <p-dialog [(visible)]="deleteOffresDialog" header="Confirmation" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Êtes-vous sûr de vouloir supprimer les offres d'emploi sélectionnées ?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non" (click)="deleteOffresDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Oui" (click)="confirmDeleteSelected()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

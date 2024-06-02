@@ -29,7 +29,7 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
             {path: '', component: LandingComponent},
 
             {path :'signup',component: SignupComponent},
-            {path :'crud',component: CrudComponent},
+            /* {path :'crud',component: CrudComponent},
             {path :'formlayout',component: FormLayoutComponent},
             {path :'Input',component: InputDemoComponent},
             {path :'invalidestate',component: InvalidStateDemoComponent},
@@ -42,7 +42,7 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
             {path :'message',component: MessagesDemoComponent},
             {path :'file',component: FileDemoComponent},
             {path :'chart',component: ChartsComponent},
-            {path :'misc',component: MiscDemoComponent},
+            {path :'misc',component: MiscDemoComponent}, */
             {path :'login',component: LoginComponent},
 
 
@@ -52,6 +52,60 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
 
             {path :'adminSignup',component: AdminsignupComponent},
             {path :'presignup',component: PresignupComponent},
+
+            {
+                path: 'user', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/user/user.module').then(m => m.UserModule) },    
+                    
+                ],
+            },
+
+            {
+                path: 'entreprise', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/entreprise/entreprise.module').then(m => m.EntrepriseModule) },    
+                    
+                ],
+            },
+
+            {
+                path: 'candidat', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/candidat/candidat.module').then(m => m.CandidatModule) },    
+                    
+                ],
+            },
+            {
+                path: 'historique', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/historique/historique.module').then(m => m.HistoriqueModule) },    
+                    
+                ],
+            },
+            {
+                path: 'responsable-rh', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/responsable-rh/responsable-rh.module').then(m => m.ResponsableRHModule) },    
+                    
+                ],
+            },
+
+            {
+                path: 'offres', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/offres/offres.module').then(m => m.OffresModule) },    
+                    
+                ],
+            },
+            {
+                path: 'acceuil', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./demo/components/acceuil/acceuil.module').then(m => m.AcceuilModule) },    
+                    
+                ],
+            },
+
 
 
             {
@@ -64,12 +118,15 @@ import { LoginComponent } from './demo/components/auth/login/login.component';
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
               
-
+                    
                     // New Update Template
                     { path: 'mydashboard', component: MydashboardComponent },
                 ],
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
+
+            
+            
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'pages/notfound', component: NotfoundComponent },
             { path: '**', redirectTo: 'pages/notfound' },

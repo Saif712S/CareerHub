@@ -18,6 +18,8 @@ export class EntrepriseService {
     })
   };
   constructor(private oauthService:OAuthService,private http:HttpClient) { }
+
+  
   getAllEntreprises(): Observable<Entreprise[]> {
     return this.http.get<Entreprise[]>(`${this.apiServiceUrl}/Entreprise/all`, this.httpOptions);
   }

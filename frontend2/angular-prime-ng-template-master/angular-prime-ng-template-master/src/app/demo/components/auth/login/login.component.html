@@ -1,21 +1,23 @@
 
 <!-- PAGE -->
+
 <div class="page">
     <div>
       <!-- OUVERTURE DU CONTENEUR -->
       <div class="col col-login mx-auto text-center">
         <a routerLink="/" class="text-center">
           <h1 class="h1">Welcome to <strong class="help">CareerHub</strong></h1>
-        </a> <br><br><br><br><br>
+        </a> <br>
       </div>
       <div class="container-login100">
         <div class="wrap-login100 p-0">
           <div class="card-body">
             <form class="login100-form validate-form" [formGroup]="loginForm">
-              <span class="login100-form-title">
+              <!-- <span class="login100-form-title">
                 Connexion
-              </span>
+              </span> -->
               <div class="wrap-input100 validate-input">
+                <label for="username" class="input-label">Nom d'utilisateur</label>
                 <input class="input100" placeholder="Entrez votre nom d'utilisateur" type="text" required=""
                   placeholder="Entrez votre nom d'utilisateur" formControlName="username"
                   (focus)="clearErrorMessage()" 
@@ -29,7 +31,9 @@
                 class="text text-danger mt-1">
                 Le nom d'utilisateur est requis
               </div>
+
               <div class="wrap-input100 validate-input" data-bs-validate="Le mot de passe est requis">
+                <label for="password" class="input-label">Mot de passe</label>
                 <input class="input100" placeholder="Entrez votre mot de passe" type="{{ show ? 'text' : 'password' }}" formControlName="password" required=""
                 (focus)="clearErrorMessage()" 
                 (blur)="showErrorMessage()">
@@ -38,9 +42,9 @@
                   <i class="zmdi zmdi-lock" aria-hidden="true"></i>
                 </span>
                 <!-- Show/hide password toggle -->
-                <button type="button" class="toggle-password" (click)="showPassword()">
-                  <i class="zmdi" [ngClass]="show ? 'zmdi-eye' : 'zmdi-eye-off'"></i>
-                </button>
+                <!-- <button type="button" class="toggle-password" (click)="showPassword()" >
+                  <i class="pi pi-eye" [ngClass]="show ? 'zmdi-eye' : 'zmdi-eye-off'" ></i>
+                </button> -->
               </div>
               
          
@@ -87,20 +91,17 @@
   <!-- Fin PAGE -->
   
   <style>
-    /* Reset styles */
-    * {
+    /* * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
   
-    /* Body styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
     }
   
-    /* Container styles */
     .container-login100 {
       max-width: 400px;
       margin: 0 auto;
@@ -110,14 +111,12 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
   
-    /* Heading styles */
     .login100-form-title {
       text-align: center;
       margin-bottom: 20px;
       color: #333;
     }
   
-    /* Input styles */
     .wrap-input100 {
       position: relative;
       margin-bottom: 20px;
@@ -143,7 +142,6 @@
       color: #aaa;
     }
   
-    /* Button styles */
     .login100-form-btn {
       display: block;
       width: 100%;
@@ -159,7 +157,6 @@
       background-color: #0056b3;
     }
   
-    /* Additional styles */
     .social-login {
       font-size: 24px;
       color: #333;
@@ -168,7 +165,131 @@
   
     .social-login:hover {
       color: #007bff;
-    }
+    } */
+
+
+    .page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Style du formulaire de connexion */
+.container-login100 {
+  width: 400px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+}
+
+/* Style du titre du formulaire */
+.login100-form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Style des champs de formulaire */
+.input100 {
+  width: 100%;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333333;
+}
+
+/* Style des messages d'erreur */
+.text-danger {
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+/* Style des boutons */
+.login100-form-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login100-form-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Style des liens */
+.text {
+  color: #3498db;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.text:hover {
+  text-decoration: underline;
+}
+
+/* Style des icônes */
+.zmdi {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.input-label {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 5px;
+}
+
+.toggle-password {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggle-password i {
+  font-size: 12px; 
+  color: #3498db; 
+}
+
+
+.col-login {
+  margin-top: 50px; /* Espace en haut de la division */
+}
+
+/* Style du titre */
+.col-login h1 {
+  font-size: 36px; /* Taille de la police */
+  color: #333; /* Couleur du texte */
+  margin-bottom: 20px; /* Espace en bas du titre */
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); /* Ombre portée pour un effet de profondeur */
+}
+
+/* Style du texte fort dans le titre */
+.col-login strong {
+  color: #3498db; /* Couleur du texte fort */
+}
+
+/* Style du lien */
+.col-login a {
+  color: #3498db; /* Couleur du lien */
+  text-decoration: none; /* Supprimer la soulignement */
+  transition: color 0.3s ease; /* Transition douce pour la couleur au survol */
+}
+
+.col-login a:hover {
+  color: #2980b9; /* Couleur du lien au survol */
+}
   </style>
   
   

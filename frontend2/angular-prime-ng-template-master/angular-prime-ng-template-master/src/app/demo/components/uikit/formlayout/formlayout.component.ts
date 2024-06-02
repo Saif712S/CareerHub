@@ -10,60 +10,68 @@ import { EntrepriseService } from 'src/app/services/entreprise.service';
 })
 export class FormLayoutComponent {
     
-    entrepriseForm!: FormGroup;
-    entreprise!:Entreprise;
+  entrepriseForm!: FormGroup;
+  entreprise!: Entreprise;
 
-    selectedState: any;
+  selectedState: any;
 
-    dropdownItems = [
-        { name: 'Option 1', code: 'Option 1' },
-        { name: 'Option 2', code: 'Option 2' },
-        { name: 'Option 3', code: 'Option 3' }
-    ];
-    constructor(private entrepriseService:EntrepriseService,
-        private router: Router,
-        private toastr: ToastrService,
-        private formBuilder: FormBuilder) {this.entrepriseForm = this.formBuilder.group({
-            nom: ['', Validators.required],
-            description: ['', [Validators.required, Validators.email]],
-            logo: ['', Validators.required],
-            secteur: ['', Validators.required],
-          
-        });
-      this.entreprise ={
-        nom:'',
-        description:'',
-        logo:'',
-        secteur: '',
-       
-    
-      }}
-      initEntrepriseForm() {
-        this.entrepriseForm = this.formBuilder.group({
-            nom: ['', Validators.required],
-            description: ['', [Validators.required, Validators.email]],
-            logo: ['', Validators.required],
-            secteur: ['', Validators.required],
-        });
-      }
+  dropdownItems = [
+    { name: 'Option 1', code: 'Option 1' },
+    { name: 'Option 2', code: 'Option 2' },
+    { name: 'Option 3', code: 'Option 3' }
+  ];
 
-      signup() {
-        if (this.entrepriseForm.valid) {
-          this.entreprise = this.entrepriseForm.value;
-          this.entrepriseService.addEntreprise(this.entreprise).subscribe(
-            data => {
-              console.log(data)
-              this.router.navigate(['/dashboard'])
-             },
-            () => {
-              this.toastr.error('EntrepriseAddedSuccessfully');
-            }
-          );
-        } else {
-          this.toastr.error('Registration Failed! Please try again');
+  constructor(
+    private entrepriseService: EntrepriseService,
+    private router: Router,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder
+  ) {
+    this.entrepriseForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      description: ['', Validators.required],
+      logo: ['', Validators.required],
+      secteur: ['', Validators.required],
+    });
+    this.entreprise = {
+      Entreprise_id: 0,  // Vous pouvez initialiser avec 0 ou une autre valeur par défaut
+      username: '',  // Initialisez avec une chaîne vide ou une valeur par défaut
+      nom: '',
+      description: '',
+      logo: '',
+      secteur: ''
+    };
+  }
+
+  initEntrepriseForm() {
+    this.entrepriseForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      description: ['', Validators.required],
+      logo: ['', Validators.required],
+      secteur: ['', Validators.required],
+    });
+  }
+
+  signup() {
+    if (this.entrepriseForm.valid) {
+      this.entreprise = { 
+        ...this.entrepriseForm.value,
+        Entreprise_id: this.entreprise.Entreprise_id,  // Maintenir l'Entreprise_id
+        username: this.entreprise.username  // Maintenir le username
+      };
+      this.entrepriseService.addEntreprise(this.entreprise).subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate(['/dashboard']);
+        },
+        () => {
+          this.toastr.error('Entreprise added successfully');
         }
-    
-      }
+      );
+    } else {
+      this.toastr.error('Registration Failed! Please try again');
+    }
+  }
   
   
 }
